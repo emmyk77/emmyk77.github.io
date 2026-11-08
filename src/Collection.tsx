@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {ArrowRight, ChevronDown, LayoutGrid, List, Search, X} from "lucide-react";
 import {projects, type Project, type Skill} from "./projects";
-import {researchThemes, researchDesigns} from "./research";
+import {featuredStudyIds} from "./research";
 import {updateAddress} from "./navigation";
 import {selectProjects} from "./catalog";
 
@@ -14,7 +14,7 @@ const defaults = {skill:"All work", topic:"All topics", method:"All approaches",
 
 export default function Collection({research = false, onOpen, Card}: CollectionProps) {
   const prefix = research ? "research-" : "analytics-";
-  const all = useMemo(() => projects.filter(p => Boolean(p.researchTheme) === research), [research]);
+  const all = useMemo(() => projects.filter(p => research ? p.researchTheme && !featuredStudyIds.includes(p.id) : !p.researchTheme), [research]);
   const topics = useMemo(() => [...new Set(all.map(p => p.topic))], [all]);
   const [filters, setFilters] = useState(defaults);
   useEffect(() => {
@@ -45,26 +45,25 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
     setFilters(next);
   }
   const filtered = selectProjects(all, {...filters, skill: filters.skill as Skill | "All work"});
-  const title = research ? "Study catalogue" : "Data analytics projects";
+  const title = research ? "Research archive" : "Data analytics projects";
   const noun = research ? "studies" : "projects";
   const hasFilters = Boolean(filters.query || filters.topic !== defaults.topic || filters.skill !== defaults.skill || filters.method !== defaults.method);
   return <section className="work-section page-width" id={research ? "academic-catalog" : "work"} aria-label={title}>
     <div className="section-intro"><div><h2>{title}<span>.</span></h2></div>
-      <p>{research ? "Browse research questions, study methods, reported findings and original reports." : "Explore business questions through Excel dashboards, MySQL queries and Power BI reports."}</p>
+      <p>{research ? "Search the remaining reports by topic, method or finding." : "Explore business questions through Excel dashboards, MySQL queries and Power BI reports."}</p>
     </div>
     {research ? <div className="research-subtopics" role="group" aria-label="Research themes">
-      {[{label:"All topics",count:all.length}, ...researchThemes].map(t =>
+      {[{label:"All topics",count:all.length}, ...topics.map(label=>({label,count:all.filter(p=>p.topic===label).length}))].map(t =>
         <button key={t.label} aria-pressed={filters.topic === t.label} onClick={() => apply({topic:t.label})}>{t.label === "All topics" ? "All studies" : t.label} <span>{t.count}</span></button>)}
     </div> : <div className="filter-tabs" role="group" aria-label="Analytics tools">{["All work","Excel","SQL","Power BI"].map(skill =>
       <button key={skill} className={"filter-tab" + (filters.skill === skill ? " selected" : "")} aria-pressed={filters.skill === skill} onClick={() => apply({skill})}>{skill === "All work" ? "All analytics" : skill}<span>{all.filter(p => skill === "All work" || p.skill === skill).length}</span></button>)}</div>}
     <div className="filter-tools"><label className="search-box"><Search size={18}/><input type="search" aria-label={"Search " + title} placeholder={research ? "Search studies, methods or findings…" : "Search projects, tools or findings…"} value={filters.query} onChange={e => apply({query:e.target.value})}/>{filters.query && <button aria-label="Clear search" onClick={() => apply({query:""})}><X size={15}/></button>}</label>
       <div className="filter-select"><select aria-label={research ? "Research approach" : "Analytics topic"} value={research ? filters.method : filters.topic} onChange={e => apply(research ? {method:e.target.value} : {topic:e.target.value})}>
-        {(research ? researchDesigns : ["All topics",...topics]).map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></div>
+        {(research ? ["All approaches",...new Set(all.map(p=>p.dataType).filter(Boolean))] : ["All topics",...topics]).map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></div>
       <div className="view-toggle" role="group" aria-label={title + " layout"}>{["grid","list"].map(view => <button key={view} aria-label={title + " " + view + " view"} aria-pressed={filters.view === view} className={filters.view === view ? "active" : ""} onClick={() => apply({view})}>{view === "grid" ? <LayoutGrid size={17}/> : <List size={17}/>}</button>)}</div>
     </div>
     <div className="results-bar"><span aria-live="polite">Showing <strong>{filtered.length}</strong> of <strong>{all.length}</strong> {noun}{hasFilters && <button className="clear-filters" onClick={() => apply({...defaults,view:filters.view})}>Reset filters <X size={12}/></button>}</span><label>Sort by <select aria-label={"Sort " + noun} value={filters.sort} onChange={e => apply({sort:e.target.value})}><option value="curated">Curated order</option><option value="title">Title A–Z</option></select></label></div>
     {filtered.length ? <div className={"project-grid" + (filters.view === "list" ? " list-view" : "")}>{filtered.map(p => <Card key={p.id} project={p} onOpen={onOpen}/>)}</div> :
       <div className="empty-state"><h3>No matches</h3><p>Try another search or clear the filters.</p><button className="button primary" onClick={() => apply(defaults)}>Show all {noun} <ArrowRight size={16}/></button></div>}
-    {!research && <p className="work-note"><a href="https://github.com/emmyk77/Kara-Ecommerce-Performance-Analysis-2023-2024">Kara e-commerce returns analysis ↗</a>Reference project by Adekanmi Andrew Adeayo.</p>}
   </section>;
 }

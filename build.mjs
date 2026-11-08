@@ -17,8 +17,9 @@ try {
   const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emmanuel Kebodi | Data Analyst</title>
-<meta name="description" content="Explore four Excel, SQL and Power BI case studies and fourteen academic research studies by topic. View Emmanuel Kebodi’s CV, methods and project sources.">
+<title>Emmanuel Kebodi Friday | Data Analyst and Quantitative Researcher</title>
+<meta name="description" content="Explore four Excel, SQL and Power BI case studies and fourteen academic research studies by topic. View Emmanuel Kebodi Friday’s CV, methods and project sources.">
+<meta name="author" content="Emmanuel Kebodi Friday"><meta property="og:title" content="Emmanuel Kebodi Friday | Data Analyst and Quantitative Researcher"><meta property="og:description" content="Explore Emmanuel Kebodi Friday’s analytics projects and independent academic research reports.">
 <meta name="theme-color" content="#172b2b"><link rel="icon" href="assets/brand.svg"><link rel="stylesheet" href="styles.css">
 <script defer src="assets/portfolio.js"></script></head><body><div id="portfolio">${markup}</div>
 <noscript>Enable JavaScript to filter the collections and open study details. <a href="https://github.com/emmyk77">Explore the GitHub projects</a> or <a href="https://drive.google.com/drive/folders/1tBkJbSdl14W_DgniZ_lChsf41m_zfdBb">browse the academic research collection</a>.</noscript></body></html>`;
@@ -26,7 +27,7 @@ try {
   const previous = {"cart.html":"cart-abandonment","clicker.html":"shop-clicker","wealth.html":"wealthsimple","getshop.html":"getshop-marketing"};
   for (const [name,id] of Object.entries(previous)) {
     const destination = "./index.html?project="+id+"#work";
-    await writeFile(name,`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project notes | Emmanuel Kebodi</title><meta http-equiv="refresh" content="0;url=${destination}"><a href="${destination}">Open this case study</a></html>\n`);
+    await writeFile(name,`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project notes | Emmanuel Kebodi Friday</title><meta http-equiv="refresh" content="0;url=${destination}"><a href="${destination}">Open this case study</a></html>\n`);
   }
 } finally {
   await rm(temp, {recursive:true, force:true});

@@ -1,3 +1,5 @@
+export const featuredStudyIds = ["electricity-sme", "e-banking-profitability", "exchange-rate", "external-debt", "digital-banking"];
+
 export const researchThemes = [
   {
     "id": "public-finance",

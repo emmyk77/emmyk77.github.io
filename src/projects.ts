@@ -3,7 +3,8 @@ export type Project = {
  id:string;title:string;subtitle:string;skill:Skill;topic:string;description:string;tags:string[];image:string;imageAlt:string;
  status:string;period:string;question:string;approach:string[];findings:string[];limitation:string;source:string;
  repository?:string;resources:{label:string;url:string;type:string}[];metrics:{value:string;label:string}[];code?:string;
- contribution?:string;researchTheme?:string;method?:string;dataType?:string;implication?:string;abstract?:string;folderUrl?:string;summaryText?:string;sourceTitle?:string;
+ recommendation?:string;trainingLabel?:string;tools?:string[];
+ contribution?:string;author?:string;researchTheme?:string;method?:string;dataType?:string;implication?:string;abstract?:string;folderUrl?:string;summaryText?:string;sourceTitle?:string;
 };
 export const skills:(Skill|"All work")[]=["All work","Excel","SQL","Research writing","Power BI"];
 export const projects:Project[] = [
@@ -13,7 +14,7 @@ export const projects:Project[] = [
     "subtitle": "E-commerce cart abandonment analysis",
     "skill": "Excel",
     "topic": "E-commerce",
-    "description": "Shoppers abandoned 4,988 of 10,000 cart events. Items priced above $300 accounted for 64.48% of the abandoned item value.",
+    "description": "Items priced above $300 accounted for 64.48% of abandoned item value.",
     "tags": [
       "Excel formulas",
       "Segmentation",
@@ -23,7 +24,7 @@ export const projects:Project[] = [
     "imageAlt": "Actual cart abandonment project overview with category rates and item-value comparisons",
     "status": "Workbook & report available",
     "period": "January–December 2025 data",
-    "question": "Where is abandonment concentrated, and what should the business measure before testing recovery strategies?",
+    "question": "Which carts account for the most abandoned item value?",
     "approach": [
       "Reviewed the eight source fields and documented the limits of the supplied dataset.",
       "Built formula-linked Excel summaries and charts across category, device, price band and activity timing.",
@@ -72,6 +73,12 @@ export const projects:Project[] = [
         "value": "64.48%",
         "label": "abandoned value in items >$300"
       }
+    ],
+    "recommendation": "Test a recovery reminder for carts with items above $300. Compare completed purchases with a group that receives no reminder.",
+    "tools": [
+      "Microsoft Excel",
+      "Excel formulas",
+      "Charts"
     ]
   },
   {
@@ -80,7 +87,7 @@ export const projects:Project[] = [
     "subtitle": "Shop Clicker customer retention analysis",
     "skill": "SQL",
     "topic": "E-commerce",
-    "description": "Of 10 customers in the sample, six purchased once, three purchased again and one had no recorded purchase.",
+    "description": "Six of the ten sample customers purchased once, three purchased more than once and one had no recorded purchase.",
     "tags": [
       "MySQL",
       "Joins & subqueries",
@@ -90,7 +97,7 @@ export const projects:Project[] = [
     "imageAlt": "Actual Shop Clicker entity relationship diagram showing five connected tables",
     "status": "SQL learning project",
     "period": "Fictional training dataset",
-    "question": "How can purchase, interaction and feedback records identify customers who may need a closer look?",
+    "question": "How often do customers return for a second purchase?",
     "approach": [
       "Designed five related tables with primary keys, foreign keys, required fields and auto-incrementing IDs.",
       "Wrote five queries using joins, aggregation, subqueries and date comparisons.",
@@ -136,7 +143,14 @@ export const projects:Project[] = [
         "label": "business queries"
       }
     ],
-    "code": "SELECT c.customer_id, c.full_name, c.location,\n       COUNT(p.purchase_id) AS total_purchases,\n       MAX(p.purchase_date) AS last_purchase_date\nFROM customers c\nLEFT JOIN purchases p\n  ON c.customer_id = p.customer_id\n  AND p.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)\nGROUP BY c.customer_id, c.full_name, c.location\nHAVING COUNT(p.purchase_id) < 2;"
+    "code": "SELECT c.customer_id, c.full_name, c.location,\n       COUNT(p.purchase_id) AS total_purchases,\n       MAX(p.purchase_date) AS last_purchase_date\nFROM customers c\nLEFT JOIN purchases p\n  ON c.customer_id = p.customer_id\n  AND p.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)\nGROUP BY c.customer_id, c.full_name, c.location\nHAVING COUNT(p.purchase_id) < 2;",
+    "recommendation": "Test a follow-up message for first-time buyers and compare second purchases with a group that receives no message.",
+    "tools": [
+      "MySQL Workbench",
+      "SQL joins",
+      "Subqueries"
+    ],
+    "trainingLabel": "Fictional training data"
   },
   {
     "id": "wealthsimple",
@@ -144,7 +158,7 @@ export const projects:Project[] = [
     "subtitle": "Wealthsimple marketing analytics",
     "skill": "Power BI",
     "topic": "Banking & fintech",
-    "description": "The comparable campaign records show 13,700 signups and 106 paying customers, a signup-to-paying rate of 0.77%.",
+    "description": "Across comparable campaign records, 13,700 signups and 106 paying customers gave a signup-to-paying rate of 0.77%.",
     "tags": [
       "Power BI",
       "Data quality",
@@ -154,7 +168,7 @@ export const projects:Project[] = [
     "imageAlt": "Actual Wealthsimple training project screenshot from Power BI Desktop showing spend and CAC",
     "status": "Fictional training data · Power BI",
     "period": "Fictional training data",
-    "question": "How do acquisition costs and conversion compare when costs and funnel counts use a consistent population?",
+    "question": "How often does a recorded signup lead to payment?",
     "approach": [
       "Preserved raw data and flagged missing, negative and inconsistent records.",
       "Defined a comparable population of 1,671 out of 2,000 source campaign records.",
@@ -203,7 +217,13 @@ export const projects:Project[] = [
         "value": "CAD 4,025.61",
         "label": "reported aggregate CAC"
       }
-    ]
+    ],
+    "recommendation": "Test a follow-up with customers who sign up and have yet to pay. Compare the share that reaches payment with a group that receives no message.",
+    "tools": [
+      "Power BI",
+      "DAX"
+    ],
+    "trainingLabel": "Fictional training data"
   },
   {
     "id": "getshop-marketing",
@@ -211,7 +231,7 @@ export const projects:Project[] = [
     "subtitle": "GetShopToday marketing dashboard",
     "skill": "Excel",
     "topic": "E-commerce",
-    "description": "Influencer campaigns led with 60 paid transactions. Pay-per-click campaigns generated the most revenue at $11,842.",
+    "description": "Influencer campaigns led with 60 paid transactions. Pay-per-click campaigns led recorded revenue at $11,842.36.",
     "tags": [
       "Pivot Tables",
       "Slicers",
@@ -221,7 +241,7 @@ export const projects:Project[] = [
     "imageAlt": "GetShopToday Excel campaign summary showing revenue, spending and acquisition cost by channel",
     "status": "Corrected campaign summary available",
     "period": "Supplied campaign dataset",
-    "question": "How do campaign types compare on spend, traffic, paid customers and revenue?",
+    "question": "Which campaign types lead on paid transactions and recorded revenue?",
     "approach": [
       "Prepared campaign summaries in Microsoft Excel using Pivot Tables.",
       "Built charts and KPI cards for marketing performance comparisons.",
@@ -265,6 +285,12 @@ export const projects:Project[] = [
         "value": "276",
         "label": "paid transactions"
       }
+    ],
+    "recommendation": "Test equal budgets for influencer and pay-per-click campaigns. Compare paid transactions and recorded revenue per dollar spent before shifting the budget.",
+    "tools": [
+      "Microsoft Excel",
+      "PivotTables",
+      "Slicers"
     ]
   },
   {
@@ -294,7 +320,7 @@ export const projects:Project[] = [
       "The model explains about 47% of the differences in reported productivity; company size is not statistically significant."
     ],
     "limitation": "The study highlights the importance of reliable and affordable electricity for manufacturing businesses. Because the survey used purposive and snowball recruitment, its findings should not be generalised to every SME or interpreted as causal effects.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -324,7 +350,8 @@ export const projects:Project[] = [
     "abstract": "This project examines how electricity access, reliability and cost relate to the performance of manufacturing small and medium enterprises in Lagos State.",
     "folderUrl": "https://drive.google.com/drive/folders/1Y0pDVFM7SukqHW5qZ5rJGDThCheRUnv5",
     "summaryText": "Electricity Access and Performance of Small and\nMedium Enterprises in Lagos State\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines how electricity access, reliability and cost relate to the performance of\nmanufacturing small and medium enterprises in Lagos State.\nHow the study was conducted\nThe analysis uses 366 valid survey responses. It applies descriptive statistics, reliability checks,\ncorrelations and regression, with company size included as a control.\nMain findings\nBetter electricity access and more reliable supply are associated with higher operational productivity.\nHigher electricity costs are associated with lower productivity. The model explains about 47% of the\ndifferences in reported productivity; company size is not statistically significant.\nWhat the findings mean\nThe study highlights the importance of reliable and affordable electricity for manufacturing businesses.\nBecause the survey used purposive and snowball recruitment, its findings should not be generalised to\nevery SME or interpreted as causal effects.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Electricity Access and SME Performance"
+    "sourceTitle": "Electricity Access and SME Performance",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "non-oil-exports",
@@ -352,7 +379,7 @@ export const projects:Project[] = [
       "Trade openness has a significant negative coefficient, while foreign investment, exchange rates and inflation are insignificant in the chapter tables."
     ],
     "limitation": "The study recommends strengthening productive non-oil sectors and export competitiveness. Some appendix output uses a different specification from the chapter tables, so the results should be reconciled before relying on precise estimates. The main report is preserved as supplied.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -411,7 +438,7 @@ export const projects:Project[] = [
       "This means the findings are sensitive to the analytical approach and sample."
     ],
     "limitation": "Banks should assess digital services using costs, income and operational benefits alongside transaction volumes. Higher transaction activity alone does not establish higher profitability.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -441,7 +468,8 @@ export const projects:Project[] = [
     "abstract": "This project examines whether electronic banking activity is associated with the profitability of ten Nigerian commercial banks between 2016 and 2025. It focuses on POS, mobile and internet banking transactions.",
     "folderUrl": "https://drive.google.com/drive/folders/1RRxDDO8d2tED_Ljdu4jdmWZEN6a96oiQ",
     "summaryText": "E-Banking and the Profitability of Commercial Banks in\nNigeria\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines whether electronic banking activity is associated with the profitability of ten\nNigerian commercial banks between 2016 and 2025. It focuses on POS, mobile and internet banking\ntransactions.\nHow the study was conducted\nThe study uses 100 bank and year observations. Its main model accounts for differences between banks\nand years, and checks whether results change under alternative specifications.\nMain findings\nNone of the three electronic banking channels has a statistically significant coefficient in the main model.\nSome relationships become significant under alternative models or after excluding a bank. This means\nthe findings are sensitive to the analytical approach and sample.\nWhat the findings mean\nBanks should assess digital services using costs, income and operational benefits alongside transaction\nvolumes. Higher transaction activity alone does not establish higher profitability.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "E-Banking and the Profitability of Commercial Banks in Nigeria"
+    "sourceTitle": "E-Banking and the Profitability of Commercial Banks in Nigeria",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "exchange-rate",
@@ -469,7 +497,7 @@ export const projects:Project[] = [
       "Oil price has a positive and significant relationship with trade balance, while the other included variables are insignificant in the reported estimates."
     ],
     "limitation": "The findings highlight Nigeria’s dependence on oil export earnings and support export diversification. An insignificant exchange rate coefficient does not establish that currency movements are economically unimportant. The model has limitations, including non-normal residuals.",
-    "source": "The public links open the anonymised research summary and full report. The original project identifies Emmanuel Kebodi as its author. Findings are reported from the study.",
+    "source": "The original University of Lagos project identifies Emmanuel Kebodi Friday as its author. The public links open the anonymised summary and report.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -500,7 +528,8 @@ export const projects:Project[] = [
     "folderUrl": "https://drive.google.com/drive/folders/1QWwXTLVY5VVBhxCYTUomUpQ3lRmWtypH",
     "summaryText": "The Impact of Exchange Rate Volatility on Nigeria’s\nTrade Balance\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines how exchange rate volatility relates to Nigeria’s trade balance from 1986 to 2024.\nIt also considers foreign direct investment, inflation, the monetary policy rate and oil prices.\nHow the study was conducted\nThe study uses annual economic data and an ARDL model to examine short term changes and longer\nterm relationships. It includes tests of data properties, predictive relationships and model diagnostics.\nMain findings\nThe report finds that exchange rate volatility is not statistically significant in either the short or long term.\nOil price has a positive and significant relationship with trade balance, while the other included variables\nare insignificant in the reported estimates.\nWhat the findings mean\nThe findings highlight Nigeria’s dependence on oil export earnings and support export diversification. An\ninsignificant exchange rate coefficient does not establish that currency movements are economically\nunimportant. The model has limitations, including non-normal residuals.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
     "sourceTitle": "Exchange Rate Volatility and Nigeria’s Trade Balance (1986–2024)",
-    "contribution": "I wrote this B.Sc. Economics project at the University of Lagos and used an ARDL model to examine the relationship between exchange rate volatility and Nigeria’s trade balance from 1986 to 2024."
+    "contribution": "I wrote this B.Sc. Economics project at the University of Lagos and used an ARDL model to examine the relationship between exchange rate volatility and Nigeria’s trade balance from 1986 to 2024.",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "external-debt",
@@ -529,7 +558,7 @@ export const projects:Project[] = [
       "The findings suggest that the immediate benefits of borrowing may differ from the longer term burden."
     ],
     "limitation": "The study recommends careful debt management and directing borrowed funds towards productive activities. The results depend on the selected model and should not be treated as proof of causation.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -559,7 +588,8 @@ export const projects:Project[] = [
     "abstract": "This project examines how external debt relates to Nigeria’s economic growth between 1986 and 2025. It considers whether borrowing supports growth in the short term and whether a growing debt burden becomes harmful over time.",
     "folderUrl": "https://drive.google.com/drive/folders/1ftggeQmOJCiCJg9J0YVDwlhGVUBBWOm0",
     "summaryText": "The Impact of External Debt on Economic Growth in\nNigeria (1986–2025)\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines how external debt relates to Nigeria’s economic growth between 1986 and 2025. It\nconsiders whether borrowing supports growth in the short term and whether a growing debt burden\nbecomes harmful over time.\nHow the study was conducted\nThe study uses annual economic data and EViews to examine changes in output, external debt,\nexchange rates, debt servicing and inflation. Its model separates short term movements from longer term\nrelationships.\nMain findings\nThe report finds a negative and statistically significant relationship between external debt and growth in\nthe long term. Some delayed short term changes in borrowing have positive effects. The findings suggest\nthat the immediate benefits of borrowing may differ from the longer term burden.\nWhat the findings mean\nThe study recommends careful debt management and directing borrowed funds towards productive\nactivities. The results depend on the selected model and should not be treated as proof of causation.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "The Impact of External Debt on Economic Growth in Nigeria (1986–2025)"
+    "sourceTitle": "The Impact of External Debt on Economic Growth in Nigeria (1986–2025)",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "digital-banking",
@@ -588,7 +618,7 @@ export const projects:Project[] = [
       "Electronic banking income is not significantly associated with return on assets in the financial analysis."
     ],
     "limitation": "The study highlights the importance of service quality while separating customer experience from bank profitability. Some appendix reliability outputs differ from the chapter narrative; those figures should be reconciled before relying on them. The main report has been preserved as supplied.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -618,7 +648,8 @@ export const projects:Project[] = [
     "abstract": "This project examines digital banking and customer satisfaction at United Bank for Africa, and separately assesses the relationship between electronic banking income and bank profitability.",
     "folderUrl": "https://drive.google.com/drive/folders/1mhOfL36fBQv9pL4_7Sp3GeV768FKuUlD",
     "summaryText": "Digital Banking Customer Satisfaction and Bank\nProfitability A Case of United Bank for Africa Plc\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines digital banking and customer satisfaction at United Bank for Africa, and separately\nassesses the relationship between electronic banking income and bank profitability.\nHow the study was conducted\nThe report combines a customer survey with a separate financial analysis for 2016 to 2025. The survey\nevaluates mobile, internet, USSD and ATM services; the financial analysis uses the standalone Bank\nfigures.\nMain findings\nEach channel is positively associated with satisfaction when examined separately. In the combined\ncustomer model, internet, USSD and ATM remain significant, while mobile does not. Electronic banking\nincome is not significantly associated with return on assets in the financial analysis.\nWhat the findings mean\nThe study highlights the importance of service quality while separating customer experience from bank\nprofitability. Some appendix reliability outputs differ from the chapter narrative; those figures should be\nreconciled before relying on them. The main report has been preserved as supplied.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Digital Banking and Customer Satisfaction and Profitability"
+    "sourceTitle": "Digital Banking and Customer Satisfaction and Profitability",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "monetary-policy",
@@ -648,7 +679,7 @@ export const projects:Project[] = [
       "The error correction result indicates adjustment towards equilibrium over time."
     ],
     "limitation": "The study recommends closer coordination of monetary and fiscal policy and better transmission of policy decisions. Some model variables are entered as changes, so the interpretation of the reported long term results depends on that specification. The original results and wording are retained in the main report.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -678,7 +709,8 @@ export const projects:Project[] = [
     "abstract": "This project examines how monetary policy relates to inflation in Nigeria between 1986 and 2024. It considers the policy rate, broad money supply, treasury bill rate, liquidity ratio and exchange rate.",
     "folderUrl": "https://drive.google.com/drive/folders/1Mk3eac-GKexShHrz02EuSkZyUOOdWpeK",
     "summaryText": "The Effect of Monetary Policy on Inflation in Nigeria\n(1986–2024)\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines how monetary policy relates to inflation in Nigeria between 1986 and 2024. It\nconsiders the policy rate, broad money supply, treasury bill rate, liquidity ratio and exchange rate.\nHow the study was conducted\nThe study uses annual data and an ARDL model to examine short term changes and the relationship\ndescribed in the report as the long term equation.\nMain findings\nBroad money supply and treasury bill rate have significant positive coefficients in the reported long term\ntable. The policy rate is weaker and is not significant at the 5% level in that table. Liquidity ratio and\nexchange rate are also insignificant. The error correction result indicates adjustment towards equilibrium\nover time.\nWhat the findings mean\nThe study recommends closer coordination of monetary and fiscal policy and better transmission of\npolicy decisions. Some model variables are entered as changes, so the interpretation of the reported long\nterm results depends on that specification. The original results and wording are retained in the main\nreport.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Monetary Policy and Inflation in Nigeria (1986–2024)"
+    "sourceTitle": "Monetary Policy and Inflation in Nigeria (1986–2024)",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "national-savings",
@@ -707,7 +739,7 @@ export const projects:Project[] = [
       "Capital formation and inflation are insignificant, and the predictive tests do not establish a savings–growth relationship in either direction."
     ],
     "limitation": "The study recommends improving how savings are channelled into productive investment and encouraging longer term saving. These are model-based associations rather than proof of causation; the statistical estimates have not been independently reproduced.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -766,7 +798,7 @@ export const projects:Project[] = [
       "The predictive tests link the monetary policy rate to inflation and broad money to real output."
     ],
     "limitation": "The findings support coordinated monetary and fiscal policies and attention to production constraints. They do not support treating money supply as the sole explanation for inflation.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -796,7 +828,8 @@ export const projects:Project[] = [
     "abstract": "This project examines the relationship between money supply and inflation in Nigeria from 1990 to 2025, while also considering monetary policy, exchange rates and real output.",
     "folderUrl": "https://drive.google.com/drive/folders/1xZzDvUumDOH23CUVS921Sne0IyQmQ8R2",
     "summaryText": "The Effect of Money Supply on Inflation in Nigeria\n(1990–2025)\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines the relationship between money supply and inflation in Nigeria from 1990 to 2025,\nwhile also considering monetary policy, exchange rates and real output.\nHow the study was conducted\nThe study uses annual economic data and an ARDL model, which examines short term changes and\nlonger term relationships. It also tests whether past values help predict subsequent movements.\nMain findings\nBroad money does not have a statistically significant independent long term coefficient in the reported\nmodel. However, lagged changes in money supply influence short term inflation. The predictive tests link\nthe monetary policy rate to inflation and broad money to real output.\nWhat the findings mean\nThe findings support coordinated monetary and fiscal policies and attention to production constraints.\nThey do not support treating money supply as the sole explanation for inflation.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Money Supply and Inflation in Nigeria (1990–2025)"
+    "sourceTitle": "Money Supply and Inflation in Nigeria (1990–2025)",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "trade-openness",
@@ -825,7 +858,7 @@ export const projects:Project[] = [
       "The predictive tests suggest a connection from openness to capital formation and from capital formation to growth."
     ],
     "limitation": "The study recommends combining trade policy with productive investment and stronger domestic capacity. Its results do not establish that trade is unimportant or identify a causal effect of trade liberalisation.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -884,7 +917,7 @@ export const projects:Project[] = [
       "Inflation has a significant negative short term relationship with growth."
     ],
     "limitation": "The findings support stronger investment planning and productive use of public borrowing. An insignificant debt coefficient does not mean that debt has no economic consequences.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -942,7 +975,7 @@ export const projects:Project[] = [
       "The capital expenditure model does not establish a longer term relationship, although debt service has a significant joint short term association with capital expenditure."
     ],
     "limitation": "The study recommends attention to borrowing costs, revenue capacity and the timing of debt payments. The capital expenditure findings also have a model specification concern, so their interpretation requires care.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -972,7 +1005,8 @@ export const projects:Project[] = [
     "abstract": "This project examines whether rising domestic and external debt increase debt servicing pressure and affect capital expenditure in Nigeria between 1986 and 2025.",
     "folderUrl": "https://drive.google.com/drive/folders/1ls2QnNDP3WGoCfA-VI_lKCGKuOCU1gb_",
     "summaryText": "Public Debt and Economic Sustainability in Nigeria\n(1986–2025)\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines whether rising domestic and external debt increase debt servicing pressure and\naffect capital expenditure in Nigeria between 1986 and 2025.\nHow the study was conducted\nThe study uses annual data and separate models for debt servicing and capital expenditure. It\ndistinguishes longer term relationships from short term movements.\nMain findings\nThe debt servicing model shows a longer term relationship, with domestic debt positively and significantly\nassociated with servicing costs. The capital expenditure model does not establish a longer term\nrelationship, although debt service has a significant joint short term association with capital expenditure.\nWhat the findings mean\nThe study recommends attention to borrowing costs, revenue capacity and the timing of debt payments.\nThe capital expenditure findings also have a model specification concern, so their interpretation requires\ncare.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Public Debt and Economic Sustainability in Nigeria"
+    "sourceTitle": "Public Debt and Economic Sustainability in Nigeria",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "tax-reforms",
@@ -1001,7 +1035,7 @@ export const projects:Project[] = [
       "VAT becomes significant when provisional 2025 data are excluded, showing that the results depend partly on the sample."
     ],
     "limitation": "The study supports broadening the tax base and improving how tax revenue is spent. The reform indicator does not isolate a causal policy effect, and provisional data and diagnostic concerns qualify the conclusions.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -1031,7 +1065,8 @@ export const projects:Project[] = [
     "abstract": "This project examines tax reforms and economic growth in Nigeria. The wider study covers 1986 to 2025, while the estimated model begins in 1994 because VAT starts in that year.",
     "folderUrl": "https://drive.google.com/drive/folders/1YlZoskpBPpOJeRgzinKWIRAu4tS3kv_u",
     "summaryText": "Tax Reforms and Economic Growth in Nigeria\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines tax reforms and economic growth in Nigeria. The wider study covers 1986 to 2025,\nwhile the estimated model begins in 1994 because VAT starts in that year.\nHow the study was conducted\nThe study uses annual data on output and major tax instruments, with a variable representing reform\nperiods. It compares short term changes and longer term relationships and checks sensitivity to the final\nyear of data.\nMain findings\nPetroleum profit tax has a positive and statistically significant long term coefficient. The reform indicator\nhas a negative and significant coefficient. VAT becomes significant when provisional 2025 data are\nexcluded, showing that the results depend partly on the sample.\nWhat the findings mean\nThe study supports broadening the tax base and improving how tax revenue is spent. The reform\nindicator does not isolate a causal policy effect, and provisional data and diagnostic concerns qualify the\nconclusions.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Tax Reforms and Economic Growth in Nigeria"
+    "sourceTitle": "Tax Reforms and Economic Growth in Nigeria",
+    "author": "Emmanuel Kebodi Friday"
   },
   {
     "id": "public-debt-accumulation",
@@ -1059,7 +1094,7 @@ export const projects:Project[] = [
       "However, the debt variables are not jointly significant in either the short or long term tests, and the individual long term debt coefficients are also insignificant."
     ],
     "limitation": "The study recommends stronger project appraisal and transparent reporting of debt financed activities. Serial correlation, overlapping explanatory variables and stability concerns limit the strength of the statistical conclusions.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The linked summary and full report provide the study method and findings. The public copies are anonymised.",
     "resources": [
       {
         "label": "Read research summary on Drive",
