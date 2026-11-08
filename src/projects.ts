@@ -219,7 +219,7 @@ export const projects:Project[] = [
     ],
     "image": "assets/getshop.webp",
     "imageAlt": "GetShopToday Excel campaign summary showing revenue, spending and acquisition cost by channel",
-    "status": "Dashboard available",
+    "status": "Corrected campaign summary available",
     "period": "Supplied campaign dataset",
     "question": "How do campaign types compare on spend, traffic, paid customers and revenue?",
     "approach": [
@@ -233,11 +233,16 @@ export const projects:Project[] = [
       "Cost per acquisition was $304.50, calculated by dividing total marketing spend by 276 paid transactions."
     ],
     "limitation": "Revenue is recorded for 233 of 276 paid transactions. ROAS uses recorded paid revenue divided by marketing spend. Profitability cannot be estimated without margin or product cost data.",
-    "source": "Campaign totals were reconciled against 1,000 source records. The preview shows the workbook’s campaign summary.",
+    "source": "The six campaign totals reconcile to 1,000 source records. The downloadable campaign summary and preview use the corrected ROAS and CPA formulas. The original dashboard is linked separately for its slicers and charts.",
     "repository": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard",
     "resources": [
       {
-        "label": "Excel dashboard workbook",
+        "label": "Download corrected campaign summary",
+        "url": "assets/GetShopToday-Campaign-Summary.xlsx",
+        "type": "XLSX"
+      },
+      {
+        "label": "Original Excel dashboard with slicers",
         "url": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard/blob/main/GetShop%20Today%20Customer%20Data%20%20Final%20project.xlsx",
         "type": "XLSX"
       },
