@@ -1,4 +1,4 @@
-# Emmyk Consult | Analytics & Academic Research
+# Emmanuel Kebodi | Data Analyst
 
 Emmanuel Kebodi’s portfolio of business analysis, reporting and academic research writing.
 

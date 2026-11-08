@@ -3,17 +3,17 @@ export type Project = {
  id:string;title:string;subtitle:string;skill:Skill;topic:string;description:string;tags:string[];image:string;imageAlt:string;
  status:string;period:string;question:string;approach:string[];findings:string[];limitation:string;source:string;
  repository?:string;resources:{label:string;url:string;type:string}[];metrics:{value:string;label:string}[];code?:string;
- researchTheme?:string;method?:string;dataType?:string;implication?:string;abstract?:string;folderUrl?:string;summaryText?:string;sourceTitle?:string;
+ contribution?:string;researchTheme?:string;method?:string;dataType?:string;implication?:string;abstract?:string;folderUrl?:string;summaryText?:string;sourceTitle?:string;
 };
 export const skills:(Skill|"All work")[]=["All work","Excel","SQL","Research writing","Power BI"];
 export const projects:Project[] = [
   {
     "id": "cart-abandonment",
-    "title": "When shoppers leave their carts",
+    "title": "E-commerce Cart Abandonment",
     "subtitle": "E-commerce cart abandonment analysis",
     "skill": "Excel",
     "topic": "E-commerce",
-    "description": "Exploring 10,000 cart events to understand where abandonment and item value are concentrated.",
+    "description": "Shoppers abandoned 4,988 of 10,000 cart events. Items priced above $300 accounted for 64.48% of the abandoned item value.",
     "tags": [
       "Excel formulas",
       "Segmentation",
@@ -75,65 +75,12 @@ export const projects:Project[] = [
     ]
   },
   {
-    "id": "getshop-marketing",
-    "title": "Making campaign performance visible",
-    "subtitle": "GetShopToday marketing dashboard",
-    "skill": "Excel",
-    "topic": "E-commerce",
-    "description": "An Excel dashboard bringing campaign spend, clicks, conversions and revenue into one view.",
-    "tags": [
-      "Pivot Tables",
-      "Slicers",
-      "Marketing analytics"
-    ],
-    "image": "assets/getshop.webp",
-    "imageAlt": "Original GetShopToday Excel marketing dashboard with campaign charts and slicers",
-    "status": "Dashboard available",
-    "period": "Supplied campaign dataset",
-    "question": "How do campaign types compare on spend, traffic, paid customers and revenue?",
-    "approach": [
-      "Prepared campaign summaries in Microsoft Excel using Pivot Tables.",
-      "Built charts and KPI cards for marketing performance comparisons.",
-      "Added workbook slicers for product category, customer location and referral source."
-    ],
-    "findings": [
-      "The dashboard compares Influencer, PPC, Email, Social Media, Affiliate and Unknown campaign categories.",
-      "Influencer campaigns have the highest displayed spend and 60 paid customers; PPC records 54 paid customers.",
-      "PPC leads displayed revenue at approximately $12K, followed by Influencer at approximately $11K."
-    ],
-    "limitation": "The dashboard displays ROI as currency and CPA as a total. Their formulas, aggregation and formats need review before drawing profitability or efficiency conclusions. The preview is static; slicers work in the Excel workbook.",
-    "source": "Current repository README and original dashboard preview. Results are described as displayed in the project.",
-    "repository": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard",
-    "resources": [
-      {
-        "label": "Excel dashboard workbook",
-        "url": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard/blob/main/GetShop%20Today%20Customer%20Data%20%20Final%20project.xlsx",
-        "type": "XLSX"
-      },
-      {
-        "label": "Source dataset",
-        "url": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard/blob/main/Datasets/GetShop%20Today%20Customer%20Data.csv",
-        "type": "CSV"
-      }
-    ],
-    "metrics": [
-      {
-        "value": "6",
-        "label": "campaign categories"
-      },
-      {
-        "value": "3",
-        "label": "workbook slicer dimensions"
-      }
-    ]
-  },
-  {
     "id": "shop-clicker",
-    "title": "Finding early signs of customer inactivity",
+    "title": "Shop Clicker Customer Retention",
     "subtitle": "Shop Clicker customer retention analysis",
     "skill": "SQL",
     "topic": "E-commerce",
-    "description": "A relational MySQL database and five business queries exploring purchase frequency, engagement and retention.",
+    "description": "Of 10 customers in the sample, six purchased once, three purchased again and one had no recorded purchase.",
     "tags": [
       "MySQL",
       "Joins & subqueries",
@@ -150,7 +97,7 @@ export const projects:Project[] = [
       "Documented the schema, sample data and business questions for use in MySQL Workbench."
     ],
     "findings": [
-      "Queries identify low purchase frequency, long engagement gaps and low satisfaction ratings.",
+      "The purchase records show six one-time buyers, three repeat buyers and one customer without a purchase among the ten sample customers.",
       "A category query counts customers with a single purchase in each category.",
       "A rule-based inactivity query combines purchase and interaction history. It is not a trained churn prediction model."
     ],
@@ -193,11 +140,11 @@ export const projects:Project[] = [
   },
   {
     "id": "wealthsimple",
-    "title": "Following the marketing funnel",
+    "title": "Wealthsimple Marketing Funnel Analysis",
     "subtitle": "Wealthsimple marketing analytics",
     "skill": "Power BI",
     "topic": "Banking & fintech",
-    "description": "A seven-page Power BI report supported by a documented data quality and metric reconciliation workflow.",
+    "description": "The comparable campaign records show 13,700 signups and 106 paying customers, a signup-to-paying rate of 0.77%.",
     "tags": [
       "Power BI",
       "Data quality",
@@ -205,7 +152,7 @@ export const projects:Project[] = [
     ],
     "image": "assets/wealth.webp",
     "imageAlt": "Actual Wealthsimple training project screenshot from Power BI Desktop showing spend and CAC",
-    "status": "Desktop report · validation pending",
+    "status": "Fictional training data · Power BI",
     "period": "Fictional training data",
     "question": "How do acquisition costs and conversion compare when costs and funnel counts use a consistent population?",
     "approach": [
@@ -216,16 +163,16 @@ export const projects:Project[] = [
     "findings": [
       "The comparable population records CAD 426,714.30 in marketing cost and 106 paying customers.",
       "Reported aggregate CAC is CAD 4,025.61, using the same cost and customer population.",
-      "Desktop screenshots show all seven pages populated; a blank budget benchmark-count card needs attention."
+      "Across all eligible records, zero channels with a defined acquisition cost exceeded the pooled CAD 4,025.61 benchmark. Channels with zero paying customers still contribute spend to that pooled figure."
     ],
-    "limitation": "Fictional training data, not actual Wealthsimple business results. Independent refresh, full DAX reconciliation and interaction testing are pending. Counts do not establish unique acquired people. No Power BI Service deployment is claimed.",
-    "source": "Current repository README, gallery and Desktop handoff dated 6 November 2026. The image is an actual Desktop screenshot, not an interactive web report.",
+    "limitation": "Fictional training data. Funnel counts are recorded events. The corrected benchmark is in the editable Power BI project. The downloadable PBIX and gallery show the earlier Desktop export. A fresh Desktop refresh and visual interaction check are still needed.",
+    "source": "The repository includes the editable Power BI project, a benchmark check and screenshots from the earlier Desktop export.",
     "repository": "https://github.com/emmyk77/Wealthsimple-Marketing-Analytics",
     "resources": [
       {
-        "label": "Power BI report",
-        "url": "https://github.com/emmyk77/Wealthsimple-Marketing-Analytics/blob/main/powerbi/Wealthsimple_Marketing_Analytics.pbix",
-        "type": "PBIX"
+        "label": "Corrected Power BI project and data",
+        "type": "ZIP",
+        "url": "https://github.com/emmyk77/Wealthsimple-Marketing-Analytics/archive/refs/heads/main.zip"
       },
       {
         "label": "Seven-page gallery",
@@ -238,9 +185,9 @@ export const projects:Project[] = [
         "type": "Notes"
       },
       {
-        "label": "Remaining validation",
-        "url": "https://github.com/emmyk77/Wealthsimple-Marketing-Analytics/blob/main/docs/review/Desktop_Handoff_2026-11-06.md",
-        "type": "Status"
+        "label": "Budget benchmark and filter checks",
+        "type": "Checks",
+        "url": "https://github.com/emmyk77/Wealthsimple-Marketing-Analytics/blob/main/docs/Budget_Benchmark_Checks.md"
       }
     ],
     "metrics": [
@@ -255,6 +202,63 @@ export const projects:Project[] = [
       {
         "value": "CAD 4,025.61",
         "label": "reported aggregate CAC"
+      }
+    ]
+  },
+  {
+    "id": "getshop-marketing",
+    "title": "GetShopToday Campaign Performance",
+    "subtitle": "GetShopToday marketing dashboard",
+    "skill": "Excel",
+    "topic": "E-commerce",
+    "description": "Influencer campaigns led with 60 paid transactions. Pay-per-click campaigns generated the most revenue at $11,842.",
+    "tags": [
+      "Pivot Tables",
+      "Slicers",
+      "Marketing analytics"
+    ],
+    "image": "assets/getshop.webp",
+    "imageAlt": "GetShopToday Excel campaign summary showing revenue, spending and acquisition cost by channel",
+    "status": "Dashboard available",
+    "period": "Supplied campaign dataset",
+    "question": "How do campaign types compare on spend, traffic, paid customers and revenue?",
+    "approach": [
+      "Prepared campaign summaries in Microsoft Excel using Pivot Tables.",
+      "Built charts and KPI cards for marketing performance comparisons.",
+      "Added workbook slicers for product category, customer location and referral source."
+    ],
+    "findings": [
+      "Influencer campaigns led with 60 paid transactions. Pay-per-click led recorded revenue at $11,842.36.",
+      "Across the six campaign categories, $84,042.16 in spending generated $59,067.11 in recorded paid revenue, or $0.70 per dollar spent.",
+      "Cost per acquisition was $304.50, calculated by dividing total marketing spend by 276 paid transactions."
+    ],
+    "limitation": "Revenue is recorded for 233 of 276 paid transactions. ROAS uses recorded paid revenue divided by marketing spend. Profitability cannot be estimated without margin or product cost data.",
+    "source": "Campaign totals were reconciled against 1,000 source records. The preview shows the workbook’s campaign summary.",
+    "repository": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard",
+    "resources": [
+      {
+        "label": "Excel dashboard workbook",
+        "url": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard/blob/main/GetShop%20Today%20Customer%20Data%20%20Final%20project.xlsx",
+        "type": "XLSX"
+      },
+      {
+        "label": "Source dataset",
+        "url": "https://github.com/emmyk77/GetShopToday-Marketing-Analytics-Dashboard/blob/main/Datasets/GetShop%20Today%20Customer%20Data.csv",
+        "type": "CSV"
+      }
+    ],
+    "metrics": [
+      {
+        "value": "0.70×",
+        "label": "return on ad spend"
+      },
+      {
+        "value": "$304.50",
+        "label": "cost per paid transaction"
+      },
+      {
+        "value": "276",
+        "label": "paid transactions"
       }
     ]
   },
@@ -460,7 +464,7 @@ export const projects:Project[] = [
       "Oil price has a positive and significant relationship with trade balance, while the other included variables are insignificant in the reported estimates."
     ],
     "limitation": "The findings highlight Nigeria’s dependence on oil export earnings and support export diversification. An insignificant exchange rate coefficient does not establish that currency movements are economically unimportant. The model has limitations, including non-normal residuals.",
-    "source": "Reviewed against the research summary and supplied full report in the Emmyk Consult Drive collection. Findings are reported from the supplied documents; statistical estimates have not been independently reproduced. Reports are anonymised and individual project roles are not separately documented.",
+    "source": "The public links open the anonymised research summary and full report. The original project identifies Emmanuel Kebodi as its author. Findings are reported from the study.",
     "resources": [
       {
         "label": "Read research summary on Drive",
@@ -490,7 +494,8 @@ export const projects:Project[] = [
     "abstract": "This project examines how exchange rate volatility relates to Nigeria’s trade balance from 1986 to 2024. It also considers foreign direct investment, inflation, the monetary policy rate and oil prices.",
     "folderUrl": "https://drive.google.com/drive/folders/1QWwXTLVY5VVBhxCYTUomUpQ3lRmWtypH",
     "summaryText": "The Impact of Exchange Rate Volatility on Nigeria’s\nTrade Balance\nRESEARCH SUMMARY\nWhat the project examines\nThis project examines how exchange rate volatility relates to Nigeria’s trade balance from 1986 to 2024.\nIt also considers foreign direct investment, inflation, the monetary policy rate and oil prices.\nHow the study was conducted\nThe study uses annual economic data and an ARDL model to examine short term changes and longer\nterm relationships. It includes tests of data properties, predictive relationships and model diagnostics.\nMain findings\nThe report finds that exchange rate volatility is not statistically significant in either the short or long term.\nOil price has a positive and significant relationship with trade balance, while the other included variables\nare insignificant in the reported estimates.\nWhat the findings mean\nThe findings highlight Nigeria’s dependence on oil export earnings and support export diversification. An\ninsignificant exchange rate coefficient does not establish that currency movements are economically\nunimportant. The model has limitations, including non-normal residuals.\nThis summary explains the supplied report. It does not replace the full project or independently reproduce\nits statistical analysis.",
-    "sourceTitle": "Exchange Rate Volatility and Nigeria’s Trade Balance (1986–2024)"
+    "sourceTitle": "Exchange Rate Volatility and Nigeria’s Trade Balance (1986–2024)",
+    "contribution": "I wrote this B.Sc. Economics project at the University of Lagos and used an ARDL model to examine the relationship between exchange rate volatility and Nigeria’s trade balance from 1986 to 2024."
   },
   {
     "id": "external-debt",

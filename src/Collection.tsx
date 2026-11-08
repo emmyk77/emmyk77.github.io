@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import {ArrowDown, ArrowRight, ChevronDown, LayoutGrid, List, Search, X} from "lucide-react";
+import {ArrowRight, ChevronDown, LayoutGrid, List, Search, X} from "lucide-react";
 import {projects, type Project, type Skill} from "./projects";
 import {researchThemes, researchDesigns} from "./research";
 import {updateAddress} from "./navigation";
@@ -17,7 +17,6 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
   const all = useMemo(() => projects.filter(p => Boolean(p.researchTheme) === research), [research]);
   const topics = useMemo(() => [...new Set(all.map(p => p.topic))], [all]);
   const [filters, setFilters] = useState(defaults);
-  const [limit, setLimit] = useState(6);
   useEffect(() => {
     function sync(event?: Event) {
       const params = new URLSearchParams(event instanceof CustomEvent ? event.detail : location.search);
@@ -26,7 +25,6 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
         next[field] = params.get(prefix + field) || defaults[field];
       }
       setFilters(next);
-      setLimit(6);
     }
     sync();
     window.addEventListener("popstate", sync);
@@ -35,7 +33,7 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
       window.removeEventListener("popstate", sync);
       window.removeEventListener("portfolio-filter", sync);
     };
-  }, [prefix]);
+  }, [prefix,all]);
   function apply(changes: Partial<typeof defaults>) {
     const next = {...filters, ...changes};
     const url = new URL(location.href);
@@ -45,12 +43,10 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
     }
     updateAddress(url);
     setFilters(next);
-    setLimit(6);
   }
   const filtered = selectProjects(all, {...filters, skill: filters.skill as Skill | "All work"});
-  const title = research ? "Academic research" : "Data analytics projects";
+  const title = research ? "Study catalogue" : "Data analytics projects";
   const noun = research ? "studies" : "projects";
-  const resultNoun = filtered.length === 1 ? (research ? "study" : "project") : noun;
   const hasFilters = Boolean(filters.query || filters.topic !== defaults.topic || filters.skill !== defaults.skill || filters.method !== defaults.method);
   return <section className="work-section page-width" id={research ? "academic-catalog" : "work"} aria-label={title}>
     <div className="section-intro"><div><h2>{title}<span>.</span></h2></div>
@@ -66,9 +62,8 @@ export default function Collection({research = false, onOpen, Card}: CollectionP
         {(research ? researchDesigns : ["All topics",...topics]).map(s => <option key={s}>{s}</option>)}</select><ChevronDown size={14}/></div>
       <div className="view-toggle" role="group" aria-label={title + " layout"}>{["grid","list"].map(view => <button key={view} aria-label={title + " " + view + " view"} aria-pressed={filters.view === view} className={filters.view === view ? "active" : ""} onClick={() => apply({view})}>{view === "grid" ? <LayoutGrid size={17}/> : <List size={17}/>}</button>)}</div>
     </div>
-    <div className="results-bar"><span aria-live="polite">Showing <strong>{Math.min(limit,filtered.length)}</strong> of <strong>{filtered.length}</strong> {resultNoun}{hasFilters && <button className="clear-filters" onClick={() => apply({...defaults,view:filters.view})}>Reset filters <X size={12}/></button>}</span><label>Sort by <select aria-label={"Sort " + noun} value={filters.sort} onChange={e => apply({sort:e.target.value})}><option value="curated">Curated order</option><option value="title">Title A–Z</option></select></label></div>
-    {filtered.length ? <><div className={"project-grid" + (filters.view === "list" ? " list-view" : "")}>{filtered.slice(0,limit).map(p => <Card key={p.id} project={p} onOpen={onOpen}/>)}</div>
-      {limit < filtered.length && <div className="load-more"><button className="button secondary" onClick={() => setLimit(filtered.length)}>Show all {filtered.length} {noun} <ArrowDown size={16}/></button></div>}</> :
+    <div className="results-bar"><span aria-live="polite">Showing <strong>{filtered.length}</strong> of <strong>{all.length}</strong> {noun}{hasFilters && <button className="clear-filters" onClick={() => apply({...defaults,view:filters.view})}>Reset filters <X size={12}/></button>}</span><label>Sort by <select aria-label={"Sort " + noun} value={filters.sort} onChange={e => apply({sort:e.target.value})}><option value="curated">Curated order</option><option value="title">Title A–Z</option></select></label></div>
+    {filtered.length ? <div className={"project-grid" + (filters.view === "list" ? " list-view" : "")}>{filtered.map(p => <Card key={p.id} project={p} onOpen={onOpen}/>)}</div> :
       <div className="empty-state"><h3>No matches</h3><p>Try another search or clear the filters.</p><button className="button primary" onClick={() => apply(defaults)}>Show all {noun} <ArrowRight size={16}/></button></div>}
     {!research && <p className="work-note"><a href="https://github.com/emmyk77/Kara-Ecommerce-Performance-Analysis-2023-2024">Kara e-commerce returns analysis ↗</a>Reference project by Adekanmi Andrew Adeayo.</p>}
   </section>;

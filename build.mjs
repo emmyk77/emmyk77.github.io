@@ -17,7 +17,7 @@ try {
   const html = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emmyk Consult | Data Analytics and Academic Research by Emmanuel Kebodi</title>
+<title>Emmanuel Kebodi | Data Analyst</title>
 <meta name="description" content="Explore four Excel, SQL and Power BI case studies and fourteen academic research studies by topic. View Emmanuel Kebodi’s CV, methods and project sources.">
 <meta name="theme-color" content="#172b2b"><link rel="icon" href="assets/brand.svg"><link rel="stylesheet" href="styles.css">
 <script defer src="assets/portfolio.js"></script></head><body><div id="portfolio">${markup}</div>
@@ -26,7 +26,7 @@ try {
   const previous = {"cart.html":"cart-abandonment","clicker.html":"shop-clicker","wealth.html":"wealthsimple","getshop.html":"getshop-marketing"};
   for (const [name,id] of Object.entries(previous)) {
     const destination = "./index.html?project="+id+"#work";
-    await writeFile(name,`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project notes | Emmyk Consult</title><meta http-equiv="refresh" content="0;url=${destination}"><a href="${destination}">Open this case study</a></html>\n`);
+    await writeFile(name,`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project notes | Emmanuel Kebodi</title><meta http-equiv="refresh" content="0;url=${destination}"><a href="${destination}">Open this case study</a></html>\n`);
   }
 } finally {
   await rm(temp, {recursive:true, force:true});
